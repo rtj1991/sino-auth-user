@@ -1,25 +1,30 @@
-    package com.sino.user_auth_api.model;
+package com.sino.user_auth_api.model;
 
-    import jakarta.persistence.*;
-    import lombok.*;
+import jakarta.persistence.*;
+import lombok.*;
 
-    import java.io.Serializable;
-    import java.util.ArrayList;
-    import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-    @EqualsAndHashCode(callSuper = true)
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Entity
-    @Table(name = "app_user")
-    public class User extends PersistedObject implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "app_user")
+public class User extends PersistedObject implements Serializable {
 
-        private String username;
-        private String password;
-        private String email;
+    @Column(nullable = false, unique = true)
+    private String username;
 
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-        private List<LoginHistory> loginHistories = new ArrayList<>();
-    }
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LoginHistory> loginHistories = new ArrayList<>();
+}

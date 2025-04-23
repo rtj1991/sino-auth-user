@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
-@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "log_history")
 public class LoginHistory extends PersistedObject implements Serializable {
@@ -18,9 +17,10 @@ public class LoginHistory extends PersistedObject implements Serializable {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
